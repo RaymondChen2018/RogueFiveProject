@@ -1,0 +1,3 @@
+- Feel free to add stuffs for now. (Give your asset an unique name)
+- Avoid modifying others' asset without their knowledge.
+- We don't want conflicting changes on the same item.
