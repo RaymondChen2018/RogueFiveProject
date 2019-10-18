@@ -2,5 +2,6 @@
 {
     void Pause();
     void Unpause();
-    void RegisterPausible();
+    void privOnAwakeRegisterPausible();
+    void privOnDestroyRegisterPausible();
 }
