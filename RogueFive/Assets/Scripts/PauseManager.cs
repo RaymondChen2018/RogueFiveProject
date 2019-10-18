@@ -2,13 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Every pausible is responsible for subscribing to this manager on spawn (OnStart())
+/// 
+/// A pausible is not required to unsub by itself on death/destroy because the manager can clear them
+/// off easily; additionally unsubbing onDestroy can create hazard where the scene changes with this 
+/// manager destroyed before its subscribers and calling unsub will generates error due to manager missing.
+/// </summary>
 public class PauseManager : MonoBehaviour
 {
     private static PauseManager singleton = null;
     private List<Pausible> subscribers = new List<Pausible>();
-    public List<string> subscribersNames = new List<string>();
 
-    // Awake
     void Awake()
     {
         if (singleton == null)
@@ -20,7 +25,6 @@ public class PauseManager : MonoBehaviour
             Debug.LogError("Duplicate PauseManager!");
         }
     }
-
 
     void OnDestroy()
     {
@@ -35,14 +39,15 @@ public class PauseManager : MonoBehaviour
     {
         for (int i = 0; i < singleton.subscribers.Count; i++)
         {
+            // Removing unsubbers
             if(singleton.subscribers[i] == null)
             {
-                Debug.LogWarning("Subscriber" + singleton.subscribersNames[i] + " forgot to unsubscribe!");
-                singleton.privRemoveSubscriber(i);
+                singleton.subscribers.RemoveAt(i);
                 i--;
                 continue;
             }
 
+            // Pause action
             if (pause)
             {
                 singleton.subscribers[i].Pause();
@@ -60,38 +65,23 @@ public class PauseManager : MonoBehaviour
     {
         if (!singleton.subscribers.Contains(subscriber))
         {
-            singleton.privAddSubscriber(subscriber);
+            singleton.subscribers.Add(subscriber);
         }
         else
         {
             Debug.LogError("Duplicate subscriber: " + subscriber + "!");
         }
     }
+
     public static void Unsubscribe(Pausible unsubscriber)
     {
         if (singleton.subscribers.Contains(unsubscriber))
         {
-            singleton.privRemoveSubscriber(unsubscriber);
+            singleton.subscribers.Remove(unsubscriber);
         }
         else
         {
-            Debug.LogError("Attempting to unsub but subscriber: " + unsubscriber + " is not subscribed!");
+            Debug.LogError("Attempting to unsub but subscriber: " + unsubscriber + " was not subscribed!");
         }
-    }
-
-    private void privAddSubscriber(Pausible subscriber)
-    {
-        subscribers.Add(subscriber);
-        subscribersNames.Add(subscriber.GetType().ToString());
-    }
-    private void privRemoveSubscriber(Pausible subscriber)
-    {
-        subscribers.Remove(subscriber);
-        subscribersNames.Remove(subscriber.GetType().ToString());
-    }
-    private void privRemoveSubscriber(int index)
-    {
-        subscribers.RemoveAt(index);
-        subscribersNames.RemoveAt(index);
     }
 }

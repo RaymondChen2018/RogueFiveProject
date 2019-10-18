@@ -2,6 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This manager manages between in-game timescale and menu pause (by PauseManager);
+/// 
+/// It reserves a timescale ratio even when the game is paused by the menu and time
+/// scale is set to 0.0f; 
+/// 
+/// It will resume its timescale when PauseManager signal unpause.
+/// </summary>
 public class TimeScaleManager : MonoBehaviour, Pausible
 {
     private static TimeScaleManager singleton = null;
@@ -19,14 +27,14 @@ public class TimeScaleManager : MonoBehaviour, Pausible
             Debug.LogError("Duplicate PauseManager!");
         }
     }
+
     void Start()
     {
-        privOnAwakeRegisterPausible();
+        privOnStartRegisterPausible();
     }
 
     void OnDestroy()
     {
-        privOnDestroyRegisterPausible();
         singleton = null;
     }
 
@@ -43,9 +51,6 @@ public class TimeScaleManager : MonoBehaviour, Pausible
         }
     }
 
-    
-
-
     public void Pause()
     {
         GamePaused = true;
@@ -58,13 +63,8 @@ public class TimeScaleManager : MonoBehaviour, Pausible
         Time.timeScale = timeScale;
     }
 
-    public void privOnAwakeRegisterPausible()
+    public void privOnStartRegisterPausible()
     {
         PauseManager.Subscribe(this);
-    }
-
-    public void privOnDestroyRegisterPausible()
-    {
-        PauseManager.Unsubscribe(this);
     }
 }
