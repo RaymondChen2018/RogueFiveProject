@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NavMeshCell : MonoBehaviour
 {
-    [SerializeField] private int dimension = 64;
+    [SerializeField] private int dimension = NavMeshManager.DEFAULT_CELL_DIMENSION;
 
     // Start is called before the first frame update
     void Start()
@@ -21,5 +21,27 @@ public class NavMeshCell : MonoBehaviour
             && (_x - _dimWorld / 2) < right
             && (_y + _dimWorld / 2) > bottom
             && (_y - _dimWorld / 2) < top;
+    }
+
+    public int GetCurrDimension()
+    {
+        return dimension;
+    }
+
+    public void SetDimension(int _dimension)
+    {
+        Vector2 scaleVec;
+        if (_dimension >= NavMeshManager.DEFAULT_CELL_DIMENSION)
+        {
+            scaleVec.x = _dimension / NavMeshManager.DEFAULT_CELL_DIMENSION;
+            scaleVec.y = _dimension / NavMeshManager.DEFAULT_CELL_DIMENSION;
+        }
+        else
+        {
+            scaleVec.x = 1.0f / (NavMeshManager.DEFAULT_CELL_DIMENSION / _dimension);
+            scaleVec.y = 1.0f / (NavMeshManager.DEFAULT_CELL_DIMENSION / _dimension);
+        }
+        transform.localScale = scaleVec;
+        dimension = _dimension;
     }
 }

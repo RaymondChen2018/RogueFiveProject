@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class NavMeshManager : MonoBehaviour
 {
-    private NavMeshManager singleton;
-
+    private static NavMeshManager singleton;
+    public const int DEFAULT_CELL_DIMENSION = 64;
 
     // Cell collision layer for the use of detecting existing filled cells
     [SerializeField] private string navMeshLayerName = "NavMesh";
@@ -15,13 +15,17 @@ public class NavMeshManager : MonoBehaviour
     [SerializeField] private GameObject NavMeshTemplate;
 
     // The viewport zone to generate cells within
-    [SerializeField] private NavMeshViewPort viewPort;
+    private NavMeshViewPort viewPort;
+
+    // Pool objects' parent branch
+    [SerializeField] private Transform poolBranch;
 
     
     private List<NavMeshCell> cells = new List<NavMeshCell>();
+    private List<NavMeshCell> cellsPool = new List<NavMeshCell>();
     private LayerMask cellLayerMask;
     private LayerMask terrainLayerMask;
-    private int cellDim = 64;
+    [SerializeField] private int baseCellDim = 64;
     private const float CELL_DETECT_GAP_TOLERANCE = 0.05f;
 
     // Previous grid-aligned boundaries
@@ -45,22 +49,23 @@ public class NavMeshManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        viewPort = NavMeshViewPort.GetSingleton();
         cellLayerMask = LayerMask.GetMask(navMeshLayerName);
         terrainLayerMask = LayerMask.GetMask(terrainTestLayerName);
-        vp_rightAlignPrev = viewPort.GetRightAlign(cellDim);
-        vp_leftAlignPrev = viewPort.GetLeftAlign(cellDim);
-        vp_topAlignPrev = viewPort.GetTopAlign(cellDim);
-        vp_bottomAlignPrev = viewPort.GetBottomAlign(cellDim);
+        vp_rightAlignPrev = viewPort.GetRightAlign(baseCellDim);
+        vp_leftAlignPrev = viewPort.GetLeftAlign(baseCellDim);
+        vp_topAlignPrev = viewPort.GetTopAlign(baseCellDim);
+        vp_bottomAlignPrev = viewPort.GetBottomAlign(baseCellDim);
         privFillCells();
     }
 
     // Update is called once per frame
     void Update()
     {
-        float vp_rightAlign = viewPort.GetRightAlign(cellDim);
-        float vp_leftAlign = viewPort.GetLeftAlign(cellDim);
-        float vp_topAlign = viewPort.GetTopAlign(cellDim);
-        float vp_bottomAlign = viewPort.GetBottomAlign(cellDim);
+        float vp_rightAlign = viewPort.GetRightAlign(baseCellDim);
+        float vp_leftAlign = viewPort.GetLeftAlign(baseCellDim);
+        float vp_topAlign = viewPort.GetTopAlign(baseCellDim);
+        float vp_bottomAlign = viewPort.GetBottomAlign(baseCellDim);
 
         // Whether or not the viewport has change its zone area
         if (vp_rightAlignPrev != vp_rightAlign ||
@@ -76,6 +81,17 @@ public class NavMeshManager : MonoBehaviour
         }
     }
 
+    void OnDestroy()
+    {
+        singleton = null;
+    }
+
+
+    public static int getBaseDimension()
+    {
+        return singleton.baseCellDim;
+    }
+
     private void privFillCells()
     {
         // Get viewport
@@ -89,18 +105,20 @@ public class NavMeshManager : MonoBehaviour
         {
             if (!cells[i].IsContained(viewPortTop, viewPortBottom, viewPortLeft, viewPortRight))
             {
-                Destroy(cells[i].gameObject);
+                //Destroy(cells[i].gameObject);
+                cells[i].gameObject.SetActive(false);
+                cellsPool.Add(cells[i]);
                 cells.RemoveAt(i);
                 i--;
             }
         }
 
         // Fill cells
-        float cellDimWorld = cellDim / 100.0f;
-        float vp_rightAlign = viewPort.GetRightAlign(cellDim);
-        float vp_leftAlign = viewPort.GetLeftAlign(cellDim);
-        float vp_topAlign = viewPort.GetTopAlign(cellDim);
-        float vp_bottomAlign = viewPort.GetBottomAlign(cellDim);
+        float cellDimWorld = baseCellDim / 100.0f;
+        float vp_rightAlign = viewPort.GetRightAlign(baseCellDim);
+        float vp_leftAlign = viewPort.GetLeftAlign(baseCellDim);
+        float vp_topAlign = viewPort.GetTopAlign(baseCellDim);
+        float vp_bottomAlign = viewPort.GetBottomAlign(baseCellDim);
         int numCell_width = Mathf.RoundToInt((vp_rightAlign - vp_leftAlign) / cellDimWorld);
         int numCell_height = Mathf.RoundToInt((vp_topAlign - vp_bottomAlign) / cellDimWorld);
         int totalNumCells = numCell_height * numCell_width;
@@ -126,10 +144,25 @@ public class NavMeshManager : MonoBehaviour
                         cellColor = Color.red;
                     }
 
-                    // Instantiate cell
-                    GameObject newCell = Instantiate(NavMeshTemplate, cellPos, Quaternion.identity);
+                    // Spawn cell
+                    GameObject newCell = null;
+                    NavMeshCell newCell_cell = null;
+                    if (cellsPool.Count > 0) // Fetch from pool
+                    {
+                        newCell_cell = cellsPool[0];
+                        newCell = newCell_cell.gameObject;
+                        newCell.SetActive(true);
+                        newCell.transform.position = cellPos;
+                        cellsPool.RemoveAt(0);
+                    }
+                    else // Pool dry
+                    {
+                        newCell = Instantiate(NavMeshTemplate, cellPos, Quaternion.identity, poolBranch);
+                        newCell_cell = newCell.GetComponent<NavMeshCell>();
+                    }
+                    cells.Add(newCell_cell);
+                    newCell_cell.SetDimension(baseCellDim);
                     newCell.GetComponent<SpriteRenderer>().color = cellColor;
-                    cells.Add(newCell.GetComponent<NavMeshCell>());
                 }
             }
         }

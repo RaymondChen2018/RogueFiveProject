@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class NavMeshViewPort : MonoBehaviour
 {
+    private static NavMeshViewPort singleton;
+
     [SerializeField] private float width = 15.0f;
     [SerializeField] private float height = 10.0f;
 
@@ -14,8 +16,16 @@ public class NavMeshViewPort : MonoBehaviour
     private const float BOUND_MATH_TOLERANCE = 0.00001f;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        if (singleton == null)
+        {
+            singleton = this;
+        }
+        else
+        {
+            Debug.LogError("Duplicate NavMeshViewPort!");
+        }
         originRefX = gameObject.transform.position.x;
         originRefY = gameObject.transform.position.y;
     }
@@ -37,10 +47,10 @@ public class NavMeshViewPort : MonoBehaviour
         Debug.DrawLine(bottomright, bottomleft, Color.blue);
         Debug.DrawLine(bottomleft, topleft, Color.blue);
         // Grid-aligned Boundaries debug
-        float viewPortBottomAlign = GetBottomAlign(64);
-        float viewPortTopAlign = GetTopAlign(64);
-        float viewPortLeftAlign = GetLeftAlign(64);
-        float viewPortRightAlign = GetRightAlign(64);
+        float viewPortBottomAlign = GetBottomAlign(NavMeshManager.getBaseDimension());
+        float viewPortTopAlign = GetTopAlign(NavMeshManager.getBaseDimension());
+        float viewPortLeftAlign = GetLeftAlign(NavMeshManager.getBaseDimension());
+        float viewPortRightAlign = GetRightAlign(NavMeshManager.getBaseDimension());
         Vector2 toprightAlign = new Vector2(viewPortRightAlign, viewPortTopAlign);
         Vector2 topleftAlign = new Vector2(viewPortLeftAlign, viewPortTopAlign);
         Vector2 bottomrightAlign = new Vector2(viewPortRightAlign, viewPortBottomAlign);
@@ -49,6 +59,16 @@ public class NavMeshViewPort : MonoBehaviour
         Debug.DrawLine(toprightAlign, bottomrightAlign, Color.green);
         Debug.DrawLine(bottomrightAlign, bottomleftAlign, Color.green);
         Debug.DrawLine(bottomleftAlign, topleftAlign, Color.green);
+    }
+
+    void OnDestroy()
+    {
+        singleton = null;
+    }
+
+    public static NavMeshViewPort GetSingleton()
+    {
+        return singleton;
     }
 
     // Boundaries
