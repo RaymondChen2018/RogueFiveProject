@@ -9,7 +9,7 @@ public class NavMeshManager : MonoBehaviour
 
     // Cell collision layer for the use of detecting existing filled cells
     [SerializeField] private string navMeshLayerName = "NavMesh";
-    [SerializeField] private string terrainTestLayerName = "terrainTest";
+    [SerializeField] private string terrainTestLayerName = "Terrain";
 
     // The cell prefab
     [SerializeField] private GameObject NavMeshTemplate;

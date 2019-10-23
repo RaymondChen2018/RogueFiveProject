@@ -242,7 +242,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   navMeshLayerName: NavMesh
-  terrainTestLayerName: terrainTest
+  terrainTestLayerName: Terrain
   NavMeshTemplate: {fileID: 3196612161873155421, guid: e2c7167dc3b0bfc4d9e1dd91f7ee1431,
     type: 3}
   poolBranch: {fileID: 2052933068}
