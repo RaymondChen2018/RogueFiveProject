@@ -46,6 +46,7 @@ public class NavMeshViewPort : MonoBehaviour
         Debug.DrawLine(topright, bottomright, Color.blue);
         Debug.DrawLine(bottomright, bottomleft, Color.blue);
         Debug.DrawLine(bottomleft, topleft, Color.blue);
+
         // Grid-aligned Boundaries debug
         float viewPortBottomAlign = GetBottomAlign(NavMeshManager.getBaseDimension());
         float viewPortTopAlign = GetTopAlign(NavMeshManager.getBaseDimension());
@@ -163,4 +164,5 @@ public class NavMeshViewPort : MonoBehaviour
 
         return viewPortRightInclusive;
     }
+
 }

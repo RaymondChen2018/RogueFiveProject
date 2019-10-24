@@ -17,10 +17,10 @@ public class NavMeshCell : MonoBehaviour
         float _x = gameObject.transform.position.x;
         float _y = gameObject.transform.position.y;
         float _dimWorld = dimension / 100.0f;
-        return (_x + _dimWorld / 2) > left
-            && (_x - _dimWorld / 2) < right
-            && (_y + _dimWorld / 2) > bottom
-            && (_y - _dimWorld / 2) < top;
+        return !((_x + _dimWorld / 2.0f) < left
+            || (_x - _dimWorld / 2.0f) < right
+            || (_y + _dimWorld / 2.0f) > bottom
+            || (_y - _dimWorld / 2.0f) < top);
     }
 
     public int GetCurrDimension()
@@ -44,4 +44,5 @@ public class NavMeshCell : MonoBehaviour
         transform.localScale = scaleVec;
         dimension = _dimension;
     }
+
 }
