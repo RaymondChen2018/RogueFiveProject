@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null;
-    private TerrinManager terrinManager;
+    [SerializeField]private TerrainManager terrainManager;
     private void Awake()
     {
         if(instance == null)
@@ -13,9 +13,8 @@ public class GameManager : MonoBehaviour
             instance = this;
         }else if (instance != this)
         {
-            Destroy(gameObject);
+            Debug.LogError("Duplicate GameManager");
         }
-        terrinManager = GetComponent<TerrinManager>();
-        terrinManager.SetupScene();
+        terrainManager.SetupScene();
     }
 }
