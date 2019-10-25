@@ -12,7 +12,7 @@ using UnityEngine;
 public class PauseManager : MonoBehaviour
 {
     private static PauseManager singleton = null;
-    private List<Pausible> subscribers = new List<Pausible>();
+    private List<IPausible> subscribers = new List<IPausible>();
 
     void Awake()
     {
@@ -61,7 +61,7 @@ public class PauseManager : MonoBehaviour
         }
     }
 
-    public static void Subscribe(Pausible subscriber)
+    public static void Subscribe(IPausible subscriber)
     {
         if (!singleton.subscribers.Contains(subscriber))
         {
@@ -73,7 +73,7 @@ public class PauseManager : MonoBehaviour
         }
     }
 
-    public static void Unsubscribe(Pausible unsubscriber)
+    public static void Unsubscribe(IPausible unsubscriber)
     {
         if (singleton.subscribers.Contains(unsubscriber))
         {

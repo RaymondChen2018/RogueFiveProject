@@ -1,4 +1,4 @@
-﻿public interface Pausible
+﻿public interface IPausible
 {
     void Pause();
     void Unpause();
