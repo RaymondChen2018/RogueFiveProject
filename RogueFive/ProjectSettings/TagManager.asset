@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Fish
   layers:
   - Default
   - TransparentFX
@@ -15,19 +16,19 @@ TagManager:
   - 
   - NavMesh
   - Terrain
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - WaterSurface
+  - Player
+  - AirBubble
+  - Background
+  - SpawnZoneFish
+  - PlayerSpawnSensor
+  - Fish
+  - ExplosionForce
+  - SeaMineTrigger
+  - LargeFish
+  - FlareRound
+  - FishSegments
+  - Skybox
   - 
   - 
   - 
@@ -38,6 +39,33 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 1522573555
+    locked: 0
+  - name: BackgroundPulse
+    uniqueID: 3018733419
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: FlareRound
+    uniqueID: 3589361857
+    locked: 0
+  - name: Terrain
+    uniqueID: 3597483453
+    locked: 0
+  - name: Fish
+    uniqueID: 1366437381
+    locked: 0
+  - name: Player
+    uniqueID: 1246480829
+    locked: 0
+  - name: WaterSurface
+    uniqueID: 1921339349
+    locked: 0
+  - name: Bubble
+    uniqueID: 2887313267
+    locked: 0
+  - name: SeaMineRedLight
+    uniqueID: 3985966389
     locked: 0
