@@ -26,11 +26,11 @@ TagManager:
   - ExplosionForce
   - SeaMineTrigger
   - LargeFish
-  - FlareRound
+  - Light
   - FishSegments
   - Skybox
   - View
-  - 
+  - CollideWithPlayer
   - 
   - 
   - 
