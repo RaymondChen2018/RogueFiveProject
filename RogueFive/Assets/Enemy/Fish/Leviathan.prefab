@@ -288,8 +288,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1366437381
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: -7974591403893022861, guid: 67c85748e5fc5e843a014bdfa1f5c937,
     type: 3}
@@ -369,8 +369,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1366437381
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: -7974591403893022861, guid: 67c85748e5fc5e843a014bdfa1f5c937,
     type: 3}
@@ -2184,6 +2184,12 @@ MonoBehaviour:
   dragAir: 1
   dragWater: 1.7
   bubbleSystem: {fileID: 0}
+  OnSurface:
+    m_PersistentCalls:
+      m_Calls: []
+  OnFullySubmerge:
+    m_PersistentCalls:
+      m_Calls: []
   diveState: 0
 --- !u!114 &5555477585175770230
 MonoBehaviour:

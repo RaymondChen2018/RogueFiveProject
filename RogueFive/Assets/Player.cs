@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
     public float swimSpeed = 300.0f;
     public float walkSpeed = 600.0f;
     [SerializeField] private UnityEventFloat OnMoveTowardAngle = new UnityEventFloat();
+    [SerializeField] private Transform playerDirectionTransform;
 
     [Header("Jump")]
     [SerializeField] private float jumpSpeed = 200.0f;
@@ -113,7 +114,9 @@ public class Player : MonoBehaviour
         RB.AddForce(moveVec * Time.deltaTime);
         if(moveVec.sqrMagnitude != 0.0f)
         {
-            OnMoveTowardAngle.Invoke(Mathf.Atan2(moveVec.y, moveVec.x) * 180.0f / 3.14f);
+            float moveAngle = Mathf.Atan2(moveVec.y, moveVec.x) * 180.0f / 3.14f;
+            playerDirectionTransform.rotation = Quaternion.Euler(0,0,moveAngle);
+            OnMoveTowardAngle.Invoke(moveAngle);
         }
 
         // Health

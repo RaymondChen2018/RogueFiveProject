@@ -10,7 +10,7 @@
         LOD 100
 
 		Stencil{
-			Ref 1
+			Ref 6
 			Comp NotEqual
 		}
 

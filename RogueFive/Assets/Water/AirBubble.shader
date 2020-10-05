@@ -10,10 +10,9 @@
 		ColorMask 0
 		ZWrite off
 		Stencil{
-			Ref 1
+			Ref 6
 			Pass replace
 		}
-			
 		
 		LOD 200
 		

@@ -2,6 +2,9 @@
 	Properties
 	{
 		_MainTex("Texture", 2D) = "white" {}
+		_MinColor("Minimum Color", Vector) = (0.1,0.1,0.1,1.0)
+		_DarkAmount("Dark Amount", Range(0.0, 1.0)) = 0.0
+		_DarkRatio("Dark Ratio", Range(0.0, 1.0)) = 1.0
 	}
 
 	SubShader
@@ -10,16 +13,12 @@
 		LOD 100
 
 		Stencil{
-			Ref 1
+			Ref 6
 			Comp NotEqual
 		}
 
 		Pass
 		{
-			Stencil{
-				Ref 7
-				Comp NotEqual
-			}
 
 			CGPROGRAM
 			#pragma vertex vert
@@ -44,6 +43,9 @@
 
 			sampler2D _MainTex;
 			float4 _MainTex_ST;
+			float4 _MinColor;
+			float _DarkRatio;
+			float _DarkAmount;
 
 			v2f vert(appdata v)
 			{
@@ -58,7 +60,10 @@
 			{
 				// sample the texture
 				fixed4 col = tex2D(_MainTex, i.uv);
-				col *= 0.5;
+				float4 tmp = col;
+				col -= _DarkAmount;
+				col *= _DarkRatio;
+				col = clamp(col, _MinColor, tmp);
 				return col;
 			}
 			ENDCG
