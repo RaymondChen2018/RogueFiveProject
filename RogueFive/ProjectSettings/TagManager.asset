@@ -29,10 +29,10 @@ TagManager:
   - Light
   - FishSegments
   - Skybox
-  - View
+  - FogOfWar
   - CollideWithPlayer
-  - 
-  - 
+  - SoftShadow
+  - ViewMesh
   - 
   - 
   - 

@@ -41,8 +41,8 @@ public class FOV_MeshGenerator : MonoBehaviour {
         if(createShadowFin)
         {
             fade_view.localScale = new Vector2(viewDist, viewDist);
-            fade_view_left.localRotation = Quaternion.Euler(0, 0, viewAngle / 2);
-            fade_view_right.localRotation = Quaternion.Euler(0, 0, -viewAngle / 2);
+            fade_view_left.rotation = Quaternion.Euler(0, 0, -viewAngle / 2);
+            fade_view_right.rotation = Quaternion.Euler(0, 0, viewAngle / 2);
         }
     }
     public void setAngle(float newAngle)
