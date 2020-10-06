@@ -388,8 +388,8 @@ LineRenderer:
         inWeight: 0.33333334
         outWeight: 0.36301365
       - serializedVersion: 3
-        time: 0.9530967
-        value: 0.6666456
+        time: 0.85943824
+        value: 0.63855416
         inSlope: -2.4504259
         outSlope: -2.4504259
         tangentMode: 0
@@ -399,11 +399,11 @@ LineRenderer:
       - serializedVersion: 3
         time: 1
         value: 0
-        inSlope: -24.964867
-        outSlope: -24.964867
+        inSlope: -6.6573076
+        outSlope: -6.6573076
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.21590354
+        inWeight: 0.28817442
         outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
@@ -686,8 +686,8 @@ LineRenderer:
         inWeight: 0.33333334
         outWeight: 0.36301365
       - serializedVersion: 3
-        time: 0.9530967
-        value: 0.6666456
+        time: 0.85943824
+        value: 0.63855416
         inSlope: -2.4504259
         outSlope: -2.4504259
         tangentMode: 0
@@ -697,11 +697,11 @@ LineRenderer:
       - serializedVersion: 3
         time: 1
         value: 0
-        inSlope: -24.964867
-        outSlope: -24.964867
+        inSlope: -6.6573076
+        outSlope: -6.6573076
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.21590354
+        inWeight: 0.28817442
         outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
@@ -892,8 +892,8 @@ LineRenderer:
         inWeight: 0.33333334
         outWeight: 0.36301365
       - serializedVersion: 3
-        time: 0.9530967
-        value: 0.6666456
+        time: 0.85943824
+        value: 0.63855416
         inSlope: -2.4504259
         outSlope: -2.4504259
         tangentMode: 0
@@ -903,11 +903,11 @@ LineRenderer:
       - serializedVersion: 3
         time: 1
         value: 0
-        inSlope: -24.964867
-        outSlope: -24.964867
+        inSlope: -6.6573076
+        outSlope: -6.6573076
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.21590354
+        inWeight: 0.28817442
         outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2

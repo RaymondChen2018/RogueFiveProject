@@ -111,22 +111,34 @@ public class Player : MonoBehaviour
         // Sum up move force
         moveVec = ((aquaMoveVec.normalized * submergeRatio).normalized * swimSpeed + landMoveVec.normalized * walkSpeed);
         RB.AddForce(moveVec * Time.deltaTime);
-        if(moveVec.sqrMagnitude != 0.0f)
+
+        //////////////////////////////////// Animation ////////////////////////////////////////////////////////
+        Vector2 animMoveDir;
+        if (submergePhysic.getDiveState() != DiveState.fullyInWater)
         {
-            float moveAngle = Mathf.Atan2(moveVec.y, moveVec.x) * 180.0f / 3.14f;
-            playerDirectionTransform.rotation = Quaternion.Euler(0,0,moveAngle);
+            animMoveDir = moveVec;
+        }
+        else
+        {
+            animMoveDir = RB.velocity;
+        }
+        
+        // Update moveDirection reference gameobject
+        if (animMoveDir.sqrMagnitude != 0.0f)
+        {
+            float moveAngle = Mathf.Atan2(animMoveDir.y, animMoveDir.x) * 180.0f / 3.14f;
+            playerDirectionTransform.rotation = Quaternion.Euler(0, 0, moveAngle);
             OnMoveTowardAngle.Invoke(moveAngle);
         }
 
-        //////////////////////////////////// Animation ////////////////////////////////////////////////////////
         // Facing left or right?
         Vector3 flipScale = anim.transform.localScale;
-        if (moveVec.x > 0.0f)
+        if (animMoveDir.x > 0.0f)
         {
             flipScale.x = Mathf.Abs(flipScale.x);
             anim.transform.localScale = flipScale;
         }
-        else if (moveVec.x < 0.0f)
+        else if (animMoveDir.x < 0.0f)
         {
             flipScale.x = Mathf.Abs(flipScale.x) * -1;
             anim.transform.localScale = flipScale;
@@ -136,9 +148,9 @@ public class Player : MonoBehaviour
         if (submergePhysic.getDiveState() == DiveState.fullyInWater)
         {
             // Change rotation only when swimming
-            if(moveVec != Vector2.zero)
+            if(animMoveDir != Vector2.zero)
             {
-                float movementRightAngle = Mathf.Atan2(moveVec.y, Mathf.Abs(moveVec.x)) * 180.0f / 3.14f;
+                float movementRightAngle = Mathf.Atan2(animMoveDir.y, Mathf.Abs(animMoveDir.x)) * 180.0f / 3.14f;
                 float movementRightAngleClamped = Mathf.Clamp(movementRightAngle, pitchMinAngle, pitchMaxAngle);
 
                 if (flipScale.x < 0.0f)

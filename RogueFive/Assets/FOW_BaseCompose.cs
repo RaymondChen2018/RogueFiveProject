@@ -23,25 +23,6 @@ public class FOW_BaseCompose : MonoBehaviour
         composeMaterial.hideFlags = HideFlags.DontSave;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public void setMaskBuffer(RenderTexture maskBuffer)
-    {
-        fogMaskBuffer = maskBuffer;
-    }
-    public void setFogTexture(RenderTexture fogTexture)
-    {
-        fogTexBuffer = fogTexture;
-    }
-    public Material getMaterial()
-    {
-        return composeMaterial;
-    }
-
     private void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
         // Render mask cam to store mask texture in "fogMaskBuffer"
