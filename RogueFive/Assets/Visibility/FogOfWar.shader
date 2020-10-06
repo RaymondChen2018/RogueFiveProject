@@ -50,10 +50,10 @@
                 fixed4 col = tex2D(_MainTex, i.uv);
 
 				// Mask fog
-				fogTex *= 1 - mask.r;
+				fogTex.a = 1 - mask.r;
 
 				// Blend with base render
-				col = lerp(col, fogTex, fogTex.a);
+				col.rgb = lerp(col.rgb, fogTex.rgb, fogTex.a);
 
                 return col;
             }
