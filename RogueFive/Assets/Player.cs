@@ -33,9 +33,7 @@ public class Player : MonoBehaviour
     private SubmergePhysics submergePhysic;
 
     [Header("Health")]
-    [SerializeField] private float health = 10.0f;
-    [SerializeField] private float maxHealth = 10.0f;
-    private bool dead = false;
+    [SerializeField] private Health health;
 
     [Header("Animation")]
     [SerializeField] Animator anim;
@@ -49,12 +47,13 @@ public class Player : MonoBehaviour
     {
         RB = GetComponent<Rigidbody2D>();
         submergePhysic = GetComponent<SubmergePhysics>();
+        health.OnDeath.AddListener(die);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(dead)
+        if(health.hasDied())
         {
             return;
         }
@@ -70,7 +69,7 @@ public class Player : MonoBehaviour
         }
         if(oxygen < 0)
         {
-            die();
+            health.damage(health.getHealth());
         }
 
         //////////////////////////////////////// Movement ///////////////////////////////////////////////
@@ -119,12 +118,6 @@ public class Player : MonoBehaviour
             OnMoveTowardAngle.Invoke(moveAngle);
         }
 
-        // Health
-        if (health <= 0)
-        {
-            die();
-        }
-
         //////////////////////////////////// Animation ////////////////////////////////////////////////////////
         // Facing left or right?
         Vector3 flipScale = anim.transform.localScale;
@@ -166,9 +159,13 @@ public class Player : MonoBehaviour
         anim.SetFloat("speed", RB.velocity.magnitude / 5.0f);
     }
 
+    public void setMaxOxygen(float newMax)
+    {
+        maxOxygen = newMax;
+    }
+
     private void die()
     {
-        dead = true;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 

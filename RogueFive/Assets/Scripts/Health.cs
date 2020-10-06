@@ -11,7 +11,7 @@ public class Health : MonoBehaviour
 
     [Header("Death")]
     [SerializeField] private bool destroyOnDeath = false;
-    [SerializeField] UnityEvent OnDeath = new UnityEvent();
+    public UnityEvent OnDeath = new UnityEvent();
     private bool isDead = false;
     // Start is called before the first frame update
     void Start()
@@ -37,5 +37,15 @@ public class Health : MonoBehaviour
     public void damage(float damageAmount)
     {
         health -= damageAmount;
+    }
+
+    public bool hasDied()
+    {
+        return isDead;
+    }
+
+    public float getHealth()
+    {
+        return health;
     }
 }
