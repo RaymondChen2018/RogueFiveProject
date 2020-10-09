@@ -16,6 +16,11 @@ public class FOW_BaseCompose : MonoBehaviour
     [Tooltip("How to compose layers?")] [SerializeField] Shader composeShader;
     Material composeMaterial;
 
+    /// <summary>
+    /// Z depth of light overlay on fogofwar mask render layer, Eg. maglite, spotlight
+    /// </summary>
+    public const float LIGHT_Z = -0.1f;
+
     // Start is called before the first frame update
     void Start()
     {

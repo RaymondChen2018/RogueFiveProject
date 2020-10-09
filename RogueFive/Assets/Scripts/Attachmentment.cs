@@ -6,6 +6,8 @@ public class Attachmentment : MonoBehaviour {
     [SerializeField] Transform parent = null;
     [Tooltip("Only follows position when true")][SerializeField] private bool fixRotation = false;
     [Tooltip("Only follow X Y coordinates when true")][SerializeField] private bool fixZ = false;
+    [Tooltip("Skip updating x coordinates when true")] [SerializeField] private bool fixX = false;
+    [Tooltip("Skip updating y coordinates when true")] [SerializeField] private bool fixY = false;
     [SerializeField] bool dontAttachEditor = false;
 
     [Header("Interpolation")]
@@ -50,8 +52,16 @@ public class Attachmentment : MonoBehaviour {
             {
                 parentPos.z = transform.position.z;
             }
+            if (fixX)
+            {
+                parentPos.x = transform.position.x;
+            }
+            if (fixY)
+            {
+                parentPos.y = transform.position.y;
+            }
 
-            if(!interpolate)
+            if (!interpolate)
             {
                 transform.position = parentPos;
                 if (!fixRotation)

@@ -27,7 +27,7 @@ public class FOV_MeshGenerator : MonoBehaviour {
     [SerializeField] private Transform fade_view_right;
     private List<GameObject> shadow_fin_pool = new List<GameObject>();
     float shadowThredshold = 1.0f;
-    float shadowZ = -5.0f;
+    float shadowZ = 0.0f;
     private float faceOrientationAngle = 0.0f;
     
     // Use this for initialization

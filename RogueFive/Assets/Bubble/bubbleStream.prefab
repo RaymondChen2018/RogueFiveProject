@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3851638580109016458}
   - component: {fileID: 3851638580109016453}
   - component: {fileID: 3851638580109016452}
-  m_Layer: 0
+  m_Layer: 27
   m_Name: bubbleStream
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4728,7 +4728,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1407654029
-  m_SortingLayer: 4
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_RenderMode: 0
   m_SortMode: 0

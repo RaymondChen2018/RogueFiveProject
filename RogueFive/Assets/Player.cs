@@ -16,14 +16,22 @@ public class Player : MonoBehaviour
     public KeyCode down;
     public KeyCode right;
     public KeyCode left;
+
+    [Header("Swim Water")]
     public float swimSpeed = 300.0f;
-    public float walkSpeed = 600.0f;
+
+    [Header("Land Walk (Only when touch ground)")]
+    [SerializeField] private float walkSpeed = 3000.0f;
+    [SerializeField] private float maxLandWalkSpeed = 3.0f;
     [SerializeField] private UnityEventFloat OnMoveTowardAngle = new UnityEventFloat();
     [SerializeField] private Transform playerDirectionTransform;
 
     [Header("Jump")]
-    [SerializeField] private float jumpSpeed = 200.0f;
+    [SerializeField] private float jumpSpeed = 150.0f;
+    private float jumpCoolDown = 0.1f;
+    private float timeLastJump = 0.0f;
     [SerializeField] private KeyCode keyJump;
+    [SerializeField] LayerMask TerrainMask;
     private bool touchGround = false;
 
     [Header("Oxygen settings")]
@@ -41,11 +49,23 @@ public class Player : MonoBehaviour
     [SerializeField] private float pitchMinAngle = -70.0f;
 
     Rigidbody2D RB;
+    CircleCollider2D circleCollider;
+    public static Player player;
 
     // Start is called before the first frame update
     void Start()
     {
+        if(player == null)
+        {
+            player = this;
+        }
+        else
+        {
+            Debug.LogError("Two players in scene");
+        }
+
         RB = GetComponent<Rigidbody2D>();
+        circleCollider = GetComponent<CircleCollider2D>();
         submergePhysic = GetComponent<SubmergePhysics>();
         health.OnDeath.AddListener(die);
     }
@@ -58,8 +78,10 @@ public class Player : MonoBehaviour
             return;
         }
 
+        Vector2 thisPos = transform.position;
+
         //////////////////////////////////////// Oxygen //////////////////////////////////////////////////
-        if(submergePhysic.getDiveState() == DiveState.fullyInWater)
+        if (submergePhysic.getDiveState() == DiveState.fullyInWater)
         {
             oxygen -= Time.deltaTime * oxygenDepletionRate;
         }
@@ -73,6 +95,11 @@ public class Player : MonoBehaviour
         }
 
         //////////////////////////////////////// Movement ///////////////////////////////////////////////
+
+        // Is player touching ground?
+        touchGround = Physics2D.CircleCast(thisPos, circleCollider.radius, Vector2.down, 0.05f, TerrainMask).collider != null;
+        anim.SetBool("touchground", touchGround);
+
         Vector2 moveVec = Vector2.zero;
         // Land Movement
         Vector2 landMoveVec = Vector2.zero;
@@ -85,6 +112,13 @@ public class Player : MonoBehaviour
             if (Input.GetKey(right))
             {
                 landMoveVec += Vector2.right;
+            }
+            if (Input.GetKeyDown(keyJump) && Time.time > timeLastJump + jumpCoolDown)
+            {
+                timeLastJump = Time.time;
+
+                Debug.Log("Jump force: "+ Vector2.up * jumpSpeed);
+                RB.AddForce(Vector2.up * jumpSpeed);
             }
         }
 
@@ -110,7 +144,17 @@ public class Player : MonoBehaviour
 
         // Sum up move force
         moveVec = ((aquaMoveVec.normalized * submergeRatio).normalized * swimSpeed + landMoveVec.normalized * walkSpeed);
+
+        // Move body
         RB.AddForce(moveVec * Time.deltaTime);
+
+        // Limit land walk speed
+        float currMovementSpeed = RB.velocity.magnitude;
+        
+        if (touchGround && currMovementSpeed > maxLandWalkSpeed)
+        {
+            RB.velocity *= maxLandWalkSpeed / currMovementSpeed;
+        }
 
         //////////////////////////////////// Animation ////////////////////////////////////////////////////////
         Vector2 animMoveDir;
@@ -181,19 +225,16 @@ public class Player : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-        touchGround = true;
-        anim.SetBool("touchground", true);
-        if (Input.GetKeyDown(keyJump))
-        {
-            RB.AddForce(Vector2.up * jumpSpeed);
-        }
-    }
+    // Use collisionstay because multiple collision could trigger exit and turn off touchground while other are colliding
+    //private void OnCollisionStay2D(Collision2D collision)
+    //{
+    //    touchGround = true;
+    //    
+    //}
 
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        touchGround = false;
-        anim.SetBool("touchground", false);
-    }
+    //private void OnCollisionExit2D(Collision2D collision)
+    //{
+    //    touchGround = false;
+    //    anim.SetBool("touchground", false);
+    //}
 }

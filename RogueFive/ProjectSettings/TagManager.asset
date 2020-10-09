@@ -33,7 +33,7 @@ TagManager:
   - CollideWithPlayer
   - SoftShadow
   - ViewMesh
-  - 
+  - Fx_FOW
   - 
   - 
   - 

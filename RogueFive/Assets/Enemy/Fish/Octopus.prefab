@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4580376461849828644}
   - component: {fileID: 6950906062419719934}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: FakeTentacle (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -262,23 +262,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05ca21e7f458f0f498dd20c6cff26ec4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  alertRadius: 20
-  playerMask:
-    serializedVersion: 2
-    m_Bits: 2048
-  movementSpeed: 1.5
+  movementSpeed: 230
+  detectRadius: 100
+  debugOn: 1
+  debugColor_detectRadius: {r: 1, g: 0, b: 0, a: 1}
   tentacleTips:
   - {fileID: 6357426516455506302}
   - {fileID: 6357426516879329381}
   - {fileID: 6357426516809401453}
   tentacleLength: 15
-  tentacleMoveSpeed: 3
+  tentacleMoveSpeed: 15
   mouth: {fileID: 5961668256600723546}
   tentacleRandomMoveSpeed: 2
-  moveRandomIntervalMin: 0.5
-  moveRandomIntervalMax: 5
-  debugOn: 1
-  debugColor_alertRadius: {r: 1, g: 0, b: 0, a: 1}
+  tentacleMoveRanIntervalMin: 0.2
+  tentacleMoveRanIntervalMax: 3
   debugColor_tentalce: {r: 0, g: 1, b: 1, a: 1}
   debugColor_tentalceLength: {r: 0, g: 0, b: 1, a: 1}
 --- !u!114 &7672414767970571616
@@ -310,7 +307,7 @@ GameObject:
   - component: {fileID: 6357426515677185799}
   - component: {fileID: 6357426515677185797}
   - component: {fileID: 6357426515677185798}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: Tentacle1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -608,7 +605,7 @@ GameObject:
   - component: {fileID: 6357426516481252348}
   - component: {fileID: 6357426516481252338}
   - component: {fileID: 6357426516481252339}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: Tentacle3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -814,7 +811,7 @@ GameObject:
   - component: {fileID: 6357426516637746075}
   - component: {fileID: 6357426516637746073}
   - component: {fileID: 6357426516637746074}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: Tentacle2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1120,7 +1117,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6357426516935409472}
   - component: {fileID: 6357426516935409479}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1237,7 +1234,7 @@ GameObject:
   m_Component:
   - component: {fileID: 908096957502458258}
   - component: {fileID: 3675793778625481804}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: FakeTentacle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1373,7 +1370,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8707550496724452481}
   - component: {fileID: 774337542280570246}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: FakeTentacle (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

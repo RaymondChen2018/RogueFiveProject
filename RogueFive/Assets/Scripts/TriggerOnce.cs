@@ -32,6 +32,7 @@ public class TriggerOnce : MonoBehaviour
         if(!(triggerTag != "" && collision.tag != triggerTag))
         {
             OnStartTouch.Invoke();
+            Destroy(gameObject);
         }
     }
 }

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 187567276366566676}
   - component: {fileID: 187567276366566683}
   - component: {fileID: 187567276366566682}
-  m_Layer: 0
+  m_Layer: 27
   m_Name: bubbleExplosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4824,7 +4824,7 @@ GameObject:
   - component: {fileID: 5002795728818211692}
   - component: {fileID: 5002795728818211693}
   - component: {fileID: 5002795728818211694}
-  m_Layer: 0
+  m_Layer: 27
   m_Name: explosion_seamine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
