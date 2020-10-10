@@ -6,6 +6,15 @@ using UnityEngine;
 [RequireComponent(typeof(LineRenderer))]
 public class Laser : MonoBehaviour
 {
+    [Header("Laser properties")]
+    [Tooltip("Target laser extends to")][SerializeField] private Transform target;
+    [Tooltip("Layers laser can hit, eg. terrain,fish,watersurface")][SerializeField] private LayerMask obstacleMask;
+    private LineRenderer lineRenderer;
+
+    [Header("Underwater Bubbles")]
+    [SerializeField] private LayerMask waterSurfaceMask;
+    [SerializeField] private GameObject prefabLaserBubbleParticle;
+    private ParticleSystem laserParticle;
     enum aquaMode
     {
         intoWater,
@@ -13,28 +22,20 @@ public class Laser : MonoBehaviour
         belowWater,
         aboveWater
     }
-    [SerializeField] private float maxDistance = 100.0f;
-    [SerializeField] private Transform target;
-    [SerializeField] private LayerMask waterSurfaceMask;
-    [Tooltip("Layers laser can hit")][SerializeField] private LayerMask obstacleMask;
-    [SerializeField] LineRenderer lineRenderer;
-
-    [Header("Particle")]
-    [SerializeField] private GameObject prefabLaserBubbleParticle;
-    private ParticleSystem laserParticle;
+    private aquaMode state = aquaMode.aboveWater;
+    private bool touchedWater = false;
+    private float castWaterY;
 
     [Header("Debug")]
     [SerializeField] private bool debugOn = true;
     [SerializeField] private Color debugColor_laser = Color.green;
 
-    [SerializeField] aquaMode state = aquaMode.aboveWater;
-    private bool touchedWater = false;
-    private float castWaterY;
-
     // Start is called before the first frame update
     void Start()
     {
         lineRenderer = GetComponent<LineRenderer>();
+
+        // Create bubble effect
         GameObject laserBubble = Instantiate(prefabLaserBubbleParticle);
         laserBubble.transform.parent = transform;
         laserBubble.transform.localPosition = Vector3.zero;
@@ -50,31 +51,33 @@ public class Laser : MonoBehaviour
             return;
         }
 
+        // Combine masks
         LayerMask collisionMask = waterSurfaceMask | obstacleMask;
+
         Vector2 thisPos = transform.position;
         Vector2 targetPos = target.position;
         Vector2 directionDelta = targetPos - thisPos;
         Vector2 direction = directionDelta.normalized;
 
-        float laserDistanceCast = Mathf.Clamp(maxDistance, 0.0f, directionDelta.magnitude);
+        // Raycast distance
+        float laserDistanceCast = directionDelta.magnitude;
         
-
+        // Test water & terrain
         bool hitWater = false;
         Vector2 waterCollisionPos = Vector3.zero;
         bool hitObstacle = false;
         Vector2 obstaclePos = Vector3.zero;
         int waterSurfaceLayer = waterSurfaceMask.LayerMaskToLayer();
-
         RaycastHit2D[] hits = Physics2D.RaycastAll(thisPos, direction, laserDistanceCast, collisionMask);
         foreach (RaycastHit2D hit in hits)
         {
-            // Skip water surface
+            // Extend through water surface
             if (hit.collider.gameObject.layer == waterSurfaceLayer)
             {
                 hitWater = true;
                 waterCollisionPos = hit.point;
             }
-            // Terrain, body, stop extending
+            // Terrain, stop extending
             else
             {
                 hitObstacle = true;
@@ -94,11 +97,12 @@ public class Laser : MonoBehaviour
             laserEndPos = thisPos + direction * laserDistanceCast;
         }
 
-        // Set laser position
+        // Set line renderer
         lineRenderer.SetPosition(0, Vector2.zero);
         lineRenderer.SetPosition(1, laserEndPos - thisPos);
 
-        // Whether hit water
+        // Evaluate if laser shoots into water or out of water
+        // or completely submerged pr completely above water
         if (!hitWater)
         {
             if (!touchedWater || thisPos.y >= castWaterY)
@@ -124,7 +128,7 @@ public class Laser : MonoBehaviour
             }
         }
 
-        // Set underwater bubble emitter
+        // Emit bubbles from submerged laser segment
         if (state != aquaMode.aboveWater)
         {
             laserParticle.keepOn();
@@ -154,7 +158,6 @@ public class Laser : MonoBehaviour
                 break;
         }
         ParticleSystem.ShapeModule laserParticleShape = laserParticle.shape;
-        // Calculate particle emitter angle
         float directionAngle = Mathf.Atan2(direction.y, direction.x) * 180.0f / 3.14f;
         laserParticleShape.rotation = Vector3.forward * directionAngle;
         laserParticleShape.radius = Vector2.Distance(waterBubbleStartPos, waterBubbleEndPos) / 2.0f;
