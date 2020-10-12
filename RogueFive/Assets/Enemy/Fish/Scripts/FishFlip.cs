@@ -5,7 +5,7 @@ using UnityEngine.Assertions;
 
 public class FishFlip : MonoBehaviour
 {
-    [Header("Orientation")]
+    [Header("Rotation")]
     [SerializeField] private float pitchMaxAngle = 70.0f;
     [SerializeField] private float pitchMinAngle = -70.0f;
     [Tooltip("How fast interpolate to target rotation?")][SerializeField] private float slerpRatio = 0.1f;
@@ -28,25 +28,27 @@ public class FishFlip : MonoBehaviour
         // Get movement delta
         Vector2 thisPos = transform.position;
         Vector2 deltaPos = thisPos - prevPos;
+        bool flipRight = deltaPos.x > 0.0f;
+        bool flipLeft = deltaPos.x < 0.0f;
+        bool dontFlip = deltaPos.x == 0.0f;
         prevPos = thisPos;
 
-        // Orient sprite
-        // Get movement angle
+        // Rotate sprite
+        // clamp rotation between upper & lower angle
         float movementRightAngle = Mathf.Atan2(deltaPos.y, Mathf.Abs(deltaPos.x)) * 180.0f / 3.14f;
         float rotation = Mathf.Clamp(movementRightAngle, pitchMinAngle, pitchMaxAngle);
-        if(deltaPos.x<0.0f)
+        if(deltaPos.x < 0.0f)
         {
             rotation = 180.0f - rotation;
-            //rotation *= -1;
         }
         Quaternion quat = Quaternion.Euler(0, 0, rotation);
         Quaternion slerpResult = Quaternion.Slerp(transform.rotation, quat, slerpRatio);
         transform.rotation = slerpResult;
 
-        // flip sprite
+        // Flip sprite
         if(flipSpriteOtherWay)
         {
-            if (deltaPos.x < 0.0f)
+            if (flipLeft)
             {
                 // flip sprite
                 spriteRenderer.flipX = true;
@@ -54,13 +56,17 @@ public class FishFlip : MonoBehaviour
                 // flip rotation
                 spriteRenderer.transform.localRotation = Quaternion.Euler(0, 0, 180.0f);
             }
-            else
+            else if(flipRight)
             {
                 // reset sprite
                 spriteRenderer.flipX = false;
 
                 // reset rotation
                 spriteRenderer.transform.localRotation = Quaternion.identity;
+            }
+            // dont flip
+            else{
+            
             }
         }
     }
