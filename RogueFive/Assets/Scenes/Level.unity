@@ -17820,6 +17820,8 @@ MonoBehaviour:
   parent: {fileID: 1323540301}
   fixRotation: 1
   fixZ: 1
+  fixX: 0
+  fixY: 0
   dontAttachEditor: 0
   interpolate: 0
   interpolateRatio: 0.2
@@ -55874,6 +55876,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6571833621581941690, guid: 56c26fdc25222aa4688f25de0f79646a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6571833623204463945, guid: 56c26fdc25222aa4688f25de0f79646a,
+        type: 3}
+      propertyPath: OnMoveTowardAngle.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 572611890}
     - target: {fileID: 6571833623204463951, guid: 56c26fdc25222aa4688f25de0f79646a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -55929,11 +55941,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6571833623204463945, guid: 56c26fdc25222aa4688f25de0f79646a,
-        type: 3}
-      propertyPath: OnMoveTowardAngle.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 572611890}
     - target: {fileID: 6571833623204463949, guid: 56c26fdc25222aa4688f25de0f79646a,
         type: 3}
       propertyPath: bubbleSystem

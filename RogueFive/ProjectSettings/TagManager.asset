@@ -34,7 +34,7 @@ TagManager:
   - SoftShadow
   - ViewMesh
   - Fx_FOW
-  - 
+  - TerrainIgnoreWaterSurface
   - 
   - 
   - 

@@ -182,7 +182,7 @@ MonoBehaviour:
   reverse: 0
   wallMask:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 268435968
   viewMeshFilter: {fileID: 5034636582631133775}
   edgeResolveiteration: 6
   edgeDstThreshold: 0.05
@@ -208,6 +208,8 @@ MonoBehaviour:
   parent: {fileID: 0}
   fixRotation: 1
   fixZ: 1
+  fixX: 0
+  fixY: 0
   dontAttachEditor: 0
   interpolate: 0
   interpolateRatio: 0.2
@@ -404,6 +406,8 @@ MonoBehaviour:
   parent: {fileID: 0}
   fixRotation: 0
   fixZ: 1
+  fixX: 0
+  fixY: 0
   dontAttachEditor: 0
   interpolate: 0
   interpolateRatio: 0.2

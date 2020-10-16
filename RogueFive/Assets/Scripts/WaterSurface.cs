@@ -10,6 +10,9 @@ public class WaterSurface : MonoBehaviour
     [Header("Surface Generation")]
     [SerializeField] private LayerMask terrainLayer;
     [Tooltip("If this is 50, scan width will be 100 wide")][SerializeField] private float scanDistance = 100.0f;
+    [SerializeField] private bool isDynamicSurface = false;
+    EdgeCollider2D edgeCollider;
+    LineRenderer lineRenderer;
 
     [Header("Debug")]
     [SerializeField] private bool debugOn = true;
@@ -21,18 +24,40 @@ public class WaterSurface : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        lineRenderer = GetComponent<LineRenderer>();
+        edgeCollider = GetComponent<EdgeCollider2D>();
+
+        privUpdateSurface();
+
+        // Dynamic water surface
+        if (isDynamicSurface)
+        {
+            gameObject.AddComponent<Rigidbody2D>().isKinematic = true;
+        }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if(isDynamicSurface)
+        {
+            privUpdateSurface();
+        }
+    }
+
+    private void privUpdateSurface()
+    {
         Vector2 thisPos = transform.position;
 
         // Define water surface
         RaycastHit2D hitLeft = Physics2D.Raycast(thisPos, Vector2.left, scanDistance, terrainLayer);
         RaycastHit2D hitRight = Physics2D.Raycast(thisPos, Vector2.right, scanDistance, terrainLayer);
-        if(!(hitLeft && hitRight))
+        if (!(hitLeft && hitRight))
         {
             Debug.LogError("Water surface not touching terrain!");
         }
 
         // Subsurface effect
-        LineRenderer lineRenderer = GetComponent<LineRenderer>();
         float lineYOffset = lineRenderer.GetPosition(0).y;
         Vector2 lineLeft = new Vector2(hitLeft.point.x - thisPos.x, lineYOffset);
         Vector2 lineRight = new Vector2(hitRight.point.x - thisPos.x, lineYOffset);
@@ -40,20 +65,13 @@ public class WaterSurface : MonoBehaviour
         lineRenderer.SetPosition(0, lineRight);
 
         // Create collider
-        EdgeCollider2D edgeCollider = GetComponent<EdgeCollider2D>();
         Vector2[] newEdgePositions = edgeCollider.points;
         newEdgePositions[0] = hitLeft.point - thisPos;
         newEdgePositions[1] = hitRight.point - thisPos;
         edgeCollider.points = newEdgePositions;
 
-        // set surface level
+        // Set surface level
         surfaceLevel = transform.position.y;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     private void OnDrawGizmos()

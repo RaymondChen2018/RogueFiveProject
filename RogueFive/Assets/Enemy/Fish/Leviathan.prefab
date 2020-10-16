@@ -395,6 +395,7 @@ GameObject:
   - component: {fileID: 7200089180630376976}
   - component: {fileID: 4798245188371540703}
   - component: {fileID: 5338645401090657192}
+  - component: {fileID: 7734189999641596079}
   m_Layer: 0
   m_Name: bottomJaw
   m_TagString: Untagged
@@ -432,6 +433,8 @@ MonoBehaviour:
   parent: {fileID: 5555477584181979983}
   fixRotation: 1
   fixZ: 1
+  fixX: 0
+  fixY: 0
   dontAttachEditor: 0
   interpolate: 1
   interpolateRatio: 0.2
@@ -455,10 +458,23 @@ MonoBehaviour:
   boneLength: 10
   enableRestore: 1
   restoreInterpolateRatio: 0.1
-  spriteRenderer: {fileID: 397180933478600567}
   debugOn: 1
   debugColor_bone: {r: 1, g: 0, b: 0, a: 1}
   debugColor_influence: {r: 0, g: 1, b: 0, a: 1}
+--- !u!114 &7734189999641596079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2456538178870444541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edc5a96df7a382741979736694a04e84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flipSpriteOtherWay: 1
+  spriteRenderer: {fileID: 397180933478600567}
 --- !u!1 &2925097170437455276
 GameObject:
   m_ObjectHideFlags: 0
@@ -965,6 +981,7 @@ GameObject:
   - component: {fileID: 3673895889412540786}
   - component: {fileID: 7816961830850754366}
   - component: {fileID: 3382043610029447752}
+  - component: {fileID: 8643156449245523326}
   m_Layer: 0
   m_Name: bottomJaw2
   m_TagString: Untagged
@@ -1002,6 +1019,8 @@ MonoBehaviour:
   parent: {fileID: 2236425180224077423}
   fixRotation: 1
   fixZ: 1
+  fixX: 0
+  fixY: 0
   dontAttachEditor: 0
   interpolate: 1
   interpolateRatio: 0.2
@@ -1025,10 +1044,23 @@ MonoBehaviour:
   boneLength: 10
   enableRestore: 1
   restoreInterpolateRatio: 0.1
-  spriteRenderer: {fileID: 2475489702660199842}
   debugOn: 1
   debugColor_bone: {r: 1, g: 0, b: 0, a: 1}
   debugColor_influence: {r: 0, g: 1, b: 0, a: 1}
+--- !u!114 &8643156449245523326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5300862484118334372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edc5a96df7a382741979736694a04e84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flipSpriteOtherWay: 1
+  spriteRenderer: {fileID: 2475489702660199842}
 --- !u!1 &5555477583254737438
 GameObject:
   m_ObjectHideFlags: 0
@@ -1042,6 +1074,7 @@ GameObject:
   - component: {fileID: 5555477583254737437}
   - component: {fileID: 5686512420719096365}
   - component: {fileID: 1356448987527595886}
+  - component: {fileID: 7502347374116311596}
   m_Layer: 21
   m_Name: fishpart2
   m_TagString: Untagged
@@ -1077,9 +1110,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edc5a96df7a382741979736694a04e84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pitchMaxAngle: 90
-  pitchMinAngle: -90
-  slerpRatio: 0.1
   flipSpriteOtherWay: 1
   spriteRenderer: {fileID: 1245695755606529577}
 --- !u!114 &5555477583254737437
@@ -1137,6 +1167,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &7502347374116311596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5555477583254737438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec78b9e8b5f125d47a14733508199065, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pitchMaxAngle: 90
+  pitchMinAngle: -90
+  slerpRatio: 0.1
 --- !u!1 &5555477583264333509
 GameObject:
   m_ObjectHideFlags: 0
@@ -1230,6 +1275,7 @@ GameObject:
   - component: {fileID: 5555477583410079306}
   - component: {fileID: 3955097240610143228}
   - component: {fileID: 6285865783546635233}
+  - component: {fileID: 4919932278496314200}
   m_Layer: 21
   m_Name: fishpart7
   m_TagString: Untagged
@@ -1265,9 +1311,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edc5a96df7a382741979736694a04e84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pitchMaxAngle: 90
-  pitchMinAngle: -90
-  slerpRatio: 0.1
   flipSpriteOtherWay: 1
   spriteRenderer: {fileID: 2149704083590208668}
 --- !u!114 &5555477583410079306
@@ -1325,6 +1368,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &4919932278496314200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5555477583410079308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec78b9e8b5f125d47a14733508199065, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pitchMaxAngle: 90
+  pitchMinAngle: -90
+  slerpRatio: 0.1
 --- !u!1 &5555477583719129818
 GameObject:
   m_ObjectHideFlags: 0
@@ -1368,6 +1426,7 @@ GameObject:
   - component: {fileID: 7545590198901642890}
   - component: {fileID: 6829303543706454639}
   - component: {fileID: 8130113560525572889}
+  - component: {fileID: 7064746806287795789}
   m_Layer: 21
   m_Name: fishpart
   m_TagString: Untagged
@@ -1423,9 +1482,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edc5a96df7a382741979736694a04e84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pitchMaxAngle: 90
-  pitchMinAngle: -90
-  slerpRatio: 0.1
   flipSpriteOtherWay: 1
   spriteRenderer: {fileID: 4903222824112729732}
 --- !u!58 &6829303543706454639
@@ -1465,6 +1521,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &7064746806287795789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5555477583953663763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec78b9e8b5f125d47a14733508199065, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pitchMaxAngle: 90
+  pitchMinAngle: -90
+  slerpRatio: 0.1
 --- !u!1 &5555477584019487342
 GameObject:
   m_ObjectHideFlags: 0
@@ -1478,6 +1549,7 @@ GameObject:
   - component: {fileID: 9120325853187091129}
   - component: {fileID: 3630139066001333188}
   - component: {fileID: 5646620322851537878}
+  - component: {fileID: 8097998163571534526}
   m_Layer: 21
   m_Name: fishpart4
   m_TagString: Untagged
@@ -1531,9 +1603,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edc5a96df7a382741979736694a04e84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pitchMaxAngle: 90
-  pitchMinAngle: -90
-  slerpRatio: 0.1
   flipSpriteOtherWay: 1
   spriteRenderer: {fileID: 1386350930020538216}
 --- !u!58 &3630139066001333188
@@ -1573,6 +1642,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &8097998163571534526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5555477584019487342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec78b9e8b5f125d47a14733508199065, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pitchMaxAngle: 90
+  pitchMinAngle: -90
+  slerpRatio: 0.1
 --- !u!1 &5555477584077040251
 GameObject:
   m_ObjectHideFlags: 0
@@ -1686,6 +1770,7 @@ GameObject:
   - component: {fileID: 5555477584849525530}
   - component: {fileID: 7006646049074816184}
   - component: {fileID: 607216880683744792}
+  - component: {fileID: 3547863611568565921}
   m_Layer: 21
   m_Name: fishpart5
   m_TagString: Untagged
@@ -1721,9 +1806,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edc5a96df7a382741979736694a04e84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pitchMaxAngle: 90
-  pitchMinAngle: -90
-  slerpRatio: 0.1
   flipSpriteOtherWay: 1
   spriteRenderer: {fileID: 7203148289222784531}
 --- !u!114 &5555477584849525530
@@ -1781,6 +1863,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &3547863611568565921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5555477584849525532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec78b9e8b5f125d47a14733508199065, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pitchMaxAngle: 90
+  pitchMinAngle: -90
+  slerpRatio: 0.1
 --- !u!1 &5555477584902790689
 GameObject:
   m_ObjectHideFlags: 0
@@ -1794,6 +1891,7 @@ GameObject:
   - component: {fileID: 5555477584902790719}
   - component: {fileID: 4713627342939980234}
   - component: {fileID: 155461012954329751}
+  - component: {fileID: 4141071477694242970}
   m_Layer: 21
   m_Name: fishpart6
   m_TagString: Untagged
@@ -1829,9 +1927,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edc5a96df7a382741979736694a04e84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pitchMaxAngle: 90
-  pitchMinAngle: -90
-  slerpRatio: 0.1
   flipSpriteOtherWay: 1
   spriteRenderer: {fileID: 4458917927714656399}
 --- !u!114 &5555477584902790719
@@ -1889,6 +1984,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &4141071477694242970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5555477584902790689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec78b9e8b5f125d47a14733508199065, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pitchMaxAngle: 90
+  pitchMinAngle: -90
+  slerpRatio: 0.1
 --- !u!1 &5555477584908744483
 GameObject:
   m_ObjectHideFlags: 0
@@ -1902,6 +2012,7 @@ GameObject:
   - component: {fileID: 7669194735305909669}
   - component: {fileID: 7321121403556041742}
   - component: {fileID: 3927254548277416638}
+  - component: {fileID: 4419968893736482243}
   m_Layer: 21
   m_Name: fishpart3
   m_TagString: Untagged
@@ -1955,9 +2066,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edc5a96df7a382741979736694a04e84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pitchMaxAngle: 90
-  pitchMinAngle: -90
-  slerpRatio: 0.1
   flipSpriteOtherWay: 1
   spriteRenderer: {fileID: 7898175384735328960}
 --- !u!58 &7321121403556041742
@@ -1997,6 +2105,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &4419968893736482243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5555477584908744483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec78b9e8b5f125d47a14733508199065, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pitchMaxAngle: 90
+  pitchMinAngle: -90
+  slerpRatio: 0.1
 --- !u!1 &5555477585156429479
 GameObject:
   m_ObjectHideFlags: 0
@@ -2093,6 +2216,7 @@ GameObject:
   - component: {fileID: 5555477585175770230}
   - component: {fileID: 1112967289303833018}
   - component: {fileID: 6966359047857873592}
+  - component: {fileID: 6886304169913573710}
   m_Layer: 19
   m_Name: FishHead
   m_TagString: Fish
@@ -2247,11 +2371,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edc5a96df7a382741979736694a04e84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  flipSpriteOtherWay: 1
+  spriteRenderer: {fileID: 3890682222614964003}
+--- !u!114 &6886304169913573710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5555477585175770238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec78b9e8b5f125d47a14733508199065, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   pitchMaxAngle: 90
   pitchMinAngle: -90
   slerpRatio: 0.1
-  flipSpriteOtherWay: 1
-  spriteRenderer: {fileID: 3890682222614964003}
 --- !u!1 &6466739038691052131
 GameObject:
   m_ObjectHideFlags: 0

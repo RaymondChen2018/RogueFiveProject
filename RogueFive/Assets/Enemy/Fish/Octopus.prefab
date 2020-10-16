@@ -149,6 +149,7 @@ GameObject:
   - component: {fileID: 6357426515242271932}
   - component: {fileID: 6357426515242271935}
   - component: {fileID: 6357426515242271934}
+  - component: {fileID: 7139656544992928837}
   - component: {fileID: 6357426515242271928}
   - component: {fileID: 7672414767970571616}
   m_Layer: 19
@@ -240,16 +241,28 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6357426515242271930}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: edc5a96df7a382741979736694a04e84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pitchMaxAngle: 90
-  pitchMinAngle: -90
-  slerpRatio: 0.01
   flipSpriteOtherWay: 0
   spriteRenderer: {fileID: 6357426516935409479}
+--- !u!114 &7139656544992928837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6357426515242271930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec78b9e8b5f125d47a14733508199065, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pitchMaxAngle: 90
+  pitchMinAngle: -90
+  slerpRatio: 0.1
 --- !u!114 &6357426515242271928
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4929790957739614961}
   - component: {fileID: 5517125567436614265}
   - component: {fileID: 7650830164181993584}
+  - component: {fileID: 2077448006390272374}
   - component: {fileID: 9038170003076520122}
   m_Layer: 16
   m_Name: fish
@@ -125,11 +126,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edc5a96df7a382741979736694a04e84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  flipSpriteOtherWay: 1
+  spriteRenderer: {fileID: 3915593711960251664}
+--- !u!114 &2077448006390272374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4929790957739614971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec78b9e8b5f125d47a14733508199065, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   pitchMaxAngle: 70
   pitchMinAngle: -70
   slerpRatio: 0.1
-  flipSpriteOtherWay: 1
-  spriteRenderer: {fileID: 3915593711960251664}
 --- !u!114 &9038170003076520122
 MonoBehaviour:
   m_ObjectHideFlags: 0

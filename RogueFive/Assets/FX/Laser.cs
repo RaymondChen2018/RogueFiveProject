@@ -12,6 +12,7 @@ public class Laser : MonoBehaviour
     private LineRenderer lineRenderer;
 
     [Header("Underwater Bubbles")]
+    [SerializeField] bool isFullyUnderWater = false;
     [SerializeField] private LayerMask waterSurfaceMask;
     [SerializeField] private GameObject prefabLaserBubbleParticle;
     private ParticleSystem laserParticle;
@@ -33,6 +34,14 @@ public class Laser : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // If initially submerged
+        if(isFullyUnderWater)
+        {
+            touchedWater = true;
+            castWaterY = transform.position.z + 1.0f;
+            state = aquaMode.belowWater;
+        }
+
         lineRenderer = GetComponent<LineRenderer>();
 
         // Create bubble effect

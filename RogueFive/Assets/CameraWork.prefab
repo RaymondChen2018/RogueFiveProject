@@ -69,7 +69,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 155189047
+    m_Bits: 423624503
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -104,6 +104,8 @@ MonoBehaviour:
   parent: {fileID: 0}
   fixRotation: 1
   fixZ: 1
+  fixX: 0
+  fixY: 0
   dontAttachEditor: 1
   interpolate: 0
   interpolateRatio: 0.2
@@ -276,7 +278,7 @@ Camera:
   m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 142606848
+    m_Bits: 411042304
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -316,6 +318,8 @@ MonoBehaviour:
   parent: {fileID: 6436519804656210235}
   fixRotation: 0
   fixZ: 1
+  fixX: 0
+  fixY: 0
   dontAttachEditor: 0
   interpolate: 0
   interpolateRatio: 0.2
@@ -504,6 +508,8 @@ MonoBehaviour:
   parent: {fileID: 6436519804656210235}
   fixRotation: 0
   fixZ: 1
+  fixX: 0
+  fixY: 0
   dontAttachEditor: 0
   interpolate: 0
   interpolateRatio: 0.2

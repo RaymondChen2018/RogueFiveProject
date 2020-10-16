@@ -13,6 +13,7 @@ public class FOW_BaseCompose : MonoBehaviour
     public RenderTexture fogTexBuffer;
 
     [Header("Composition")]
+    [Tooltip("If true, use normal camera renderering instead of stacking 3 camera renders")] [SerializeField] private bool useNormalRender = false;
     [Tooltip("How to compose layers?")] [SerializeField] Shader composeShader;
     Material composeMaterial;
 
@@ -30,27 +31,36 @@ public class FOW_BaseCompose : MonoBehaviour
 
     private void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
-        // Render mask cam to store mask texture in "fogMaskBuffer"
-        fogMaskCam.Render();
-
-        // Render fog cam to store masked fog texture in "fogTexBuffer"
-        fogTextureCam.Render();
-
-        if(fogTexBuffer != null && fogMaskBuffer != null)
+        if (useNormalRender)
         {
-            // Pass alpha buffer
-            composeMaterial.SetTexture("_MaskBuffer", fogMaskBuffer);
-
-            // Pass masked fog buffer
-            composeMaterial.SetTexture("_FogTexture", fogTexBuffer);
-
-            // Use composeMaterial to process fogofwar effect
-            Graphics.Blit(source, destination, composeMaterial);
+            Graphics.Blit(source, destination);
+            Debug.Log("Use simple camera");
         }
         else
         {
-            Debug.LogError("Layers not completed");
-            Graphics.Blit(source, destination);
+            // Render mask cam to store mask texture in "fogMaskBuffer"
+            fogMaskCam.Render();
+
+            // Render fog cam to store masked fog texture in "fogTexBuffer"
+            fogTextureCam.Render();
+
+
+            if (fogTexBuffer != null && fogMaskBuffer != null)
+            {
+                // Pass alpha buffer
+                composeMaterial.SetTexture("_MaskBuffer", fogMaskBuffer);
+
+                // Pass masked fog buffer
+                composeMaterial.SetTexture("_FogTexture", fogTexBuffer);
+
+                // Use composeMaterial to process fogofwar effect
+                Graphics.Blit(source, destination, composeMaterial);
+            }
+            else
+            {
+                Debug.LogError("Layers not completed");
+                Graphics.Blit(source, destination);
+            }
         }
     }
 }

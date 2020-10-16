@@ -116,8 +116,6 @@ public class Player : MonoBehaviour
             if (Input.GetKeyDown(keyJump) && Time.time > timeLastJump + jumpCoolDown)
             {
                 timeLastJump = Time.time;
-
-                Debug.Log("Jump force: "+ Vector2.up * jumpSpeed);
                 RB.AddForce(Vector2.up * jumpSpeed);
             }
         }

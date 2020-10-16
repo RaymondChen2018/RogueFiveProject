@@ -16,8 +16,8 @@ public class FishFin : MonoBehaviour
     private Vector2 prevPos;
     private Quaternion boneLocalRotation;
 
-    [Header("Flip Sprite")]
-    [SerializeField] private SpriteRenderer spriteRenderer;
+    //[Header("Flip Sprite")]
+    //[SerializeField] private SpriteRenderer spriteRenderer;
 
     [Header("debug")]
     [SerializeField] private bool debugOn = true;
@@ -29,7 +29,7 @@ public class FishFin : MonoBehaviour
     {
         prevPos = transform.position;
         boneLocalRotation = transform.rotation;
-        Assert.IsTrue(spriteRenderer.gameObject != gameObject, "sprite renderer must be separated for sprite flip & 180 rotation");
+        //Assert.IsTrue(spriteRenderer.gameObject != gameObject, "sprite renderer must be separated for sprite flip & 180 rotation");
     }
 
     // Update is called once per frame
@@ -62,22 +62,22 @@ public class FishFin : MonoBehaviour
             //Debug.DrawLine((Vector2)(bendToQuat * Vector3.right * movementInfluence * boneLength) + thisPos, thisPos, debugColor_influence);
         }
 
-        // Flip sprite
-        if (deltaPos.x < 0.0f)
-        {
-            // flip sprite
-            spriteRenderer.flipX = true;
+        //// Flip sprite
+        //if (deltaPos.x < 0.0f)
+        //{
+        //    // flip sprite
+        //    spriteRenderer.flipX = true;
 
-            // flip rotation
-            spriteRenderer.transform.localRotation = Quaternion.Euler(0, 0, 180.0f);
-        }
-        else
-        {
-            // reset sprite
-            spriteRenderer.flipX = false;
+        //    // flip rotation
+        //    spriteRenderer.transform.localRotation = Quaternion.Euler(0, 0, 180.0f);
+        //}
+        //else
+        //{
+        //    // reset sprite
+        //    spriteRenderer.flipX = false;
 
-            // reset rotation
-            spriteRenderer.transform.localRotation = Quaternion.identity;
-        }
+        //    // reset rotation
+        //    spriteRenderer.transform.localRotation = Quaternion.identity;
+        //}
     }
 }
