@@ -50,6 +50,32 @@ public static class ExtensionMethods
         return newMesh;
     }
 
+    public static float readAlpha(this Gradient gradient, float time)
+    {
+        // before first key
+        if(time < gradient.alphaKeys[0].time)
+        {
+            return gradient.alphaKeys[0].alpha;
+        }
+        // after first key
+        else if (time > gradient.alphaKeys[gradient.alphaKeys.Length - 1].time)
+        {
+            return gradient.alphaKeys[gradient.alphaKeys.Length - 1].alpha;
+        }
+
+        for (int i = 0; i < gradient.alphaKeys.Length - 1; i++)
+        {
+            GradientAlphaKey keyCurr = gradient.alphaKeys[i];
+            GradientAlphaKey keyNext = gradient.alphaKeys[i + 1];
+            if (time <= keyNext.time)
+            {
+                return Mathf.Lerp(keyCurr.alpha, keyNext.alpha, (time - keyCurr.time) / (keyNext.time - keyCurr.time));
+            }
+        }
+
+        return 1.0f;
+    }
+
     public static Mesh polyCollider2DToMesh(this PolygonCollider2D polyCollider)
     {
         Mesh newMesh;

@@ -601,8 +601,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78b835eb9f0292c4d840bbf62b55016f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10000
-  maxHealth: 10000
+  health: 10
+  maxHealth: 10
   destroyOnDeath: 0
   OnDeath:
     m_PersistentCalls:
@@ -847,7 +847,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5185584557505836147
 Transform:
   m_ObjectHideFlags: 0

@@ -9,7 +9,14 @@ public class Laser : MonoBehaviour
     [Header("Laser properties")]
     [Tooltip("Target laser extends to")][SerializeField] private Transform target;
     [Tooltip("Layers laser can hit, eg. terrain,fish,watersurface")][SerializeField] private LayerMask obstacleMask;
+    [SerializeField] private float laserDamage = 10.0f;
     private LineRenderer lineRenderer;
+
+    [Header("Flicker Pattern")]
+    [Tooltip("Duration for one cycle")][SerializeField] private float patternDuration = 5.0f;
+    [Tooltip("Laser intensity affected by only alpha value")][SerializeField] private Gradient pattern;
+    private Gradient tempGradient;
+    GradientAlphaKey[] tempAlphaKeys;
 
     [Header("Underwater Bubbles")]
     [SerializeField] bool isFullyUnderWater = false;
@@ -49,6 +56,16 @@ public class Laser : MonoBehaviour
         laserBubble.transform.parent = transform;
         laserBubble.transform.localPosition = Vector3.zero;
         laserParticle = laserBubble.GetComponent<ParticleSystem>();
+
+        //
+        tempGradient = new Gradient();
+        tempAlphaKeys = new GradientAlphaKey[lineRenderer.colorGradient.alphaKeys.Length];
+        for(int i=0;i< tempAlphaKeys.Length;i++)
+        {
+            tempAlphaKeys[i] = new GradientAlphaKey(1.0f, lineRenderer.colorGradient.alphaKeys[i].time);
+        }
+        tempGradient.SetKeys(lineRenderer.colorGradient.colorKeys, tempAlphaKeys);
+        lineRenderer.colorGradient = tempGradient;
     }
 
     // Update is called once per frame
@@ -59,6 +76,18 @@ public class Laser : MonoBehaviour
             Debug.LogWarning("this laser has no target");
             return;
         }
+
+        // Read gradient for laser intensity
+        float time = (Time.time % patternDuration) / patternDuration;
+        float laserIntensity = pattern.readAlpha(time);
+
+        // Override linerenderer alpha keys
+        for (int i = 0;i < tempAlphaKeys.Length;i++)
+        {
+            tempAlphaKeys[i].alpha = laserIntensity;
+        }
+        tempGradient.SetKeys(tempGradient.colorKeys, tempAlphaKeys);
+        lineRenderer.colorGradient = tempGradient;
 
         // Combine masks
         LayerMask collisionMask = waterSurfaceMask | obstacleMask;
@@ -86,11 +115,23 @@ public class Laser : MonoBehaviour
                 hitWater = true;
                 waterCollisionPos = hit.point;
             }
-            // Terrain, stop extending
+            // Terrain or body, stop extending
             else
             {
                 hitObstacle = true;
                 obstaclePos = hit.point;
+
+                // Reduce health if has health
+                Health targetHealth = hit.collider.GetComponent<Health>();
+                if (targetHealth != null)
+                {
+                    float damage = laserDamage * laserIntensity * Time.deltaTime;
+                    if(damage > 0.0f)
+                    {
+                        targetHealth.damage(damage);
+                    }
+                }
+
                 break;
             }
         }
@@ -138,7 +179,7 @@ public class Laser : MonoBehaviour
         }
 
         // Emit bubbles from submerged laser segment
-        if (state != aquaMode.aboveWater)
+        if (state != aquaMode.aboveWater && laserIntensity > 0.0f)
         {
             laserParticle.keepOn();
         }
@@ -179,8 +220,11 @@ public class Laser : MonoBehaviour
         {
             Vector2 thisPos = transform.position;
             Vector2 targetPos = target.position;
-
             Debug.DrawLine(thisPos, targetPos, debugColor_laser);
+
+            LineRenderer line = GetComponent<LineRenderer>();
+            line.SetPosition(0, Vector2.zero);
+            line.SetPosition(1, targetPos - thisPos);
         }
     }
 }
