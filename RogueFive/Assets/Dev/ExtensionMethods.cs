@@ -50,7 +50,7 @@ public static class ExtensionMethods
         return newMesh;
     }
 
-    public static float readAlpha(this Gradient gradient, float time)
+    public static float getAlpha(this Gradient gradient, float time)
     {
         // before first key
         if(time < gradient.alphaKeys[0].time)

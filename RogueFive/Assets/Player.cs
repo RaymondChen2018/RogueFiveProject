@@ -218,6 +218,16 @@ public class Player : MonoBehaviour
         maxOxygen = newMax;
     }
 
+    public float getOxygenRatio()
+    {
+        return oxygen / maxOxygen;
+    }
+
+    public float getHealthRatio()
+    {
+        return health.getHealth() / health.getMaxHealth();
+    }
+
     private void die()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);

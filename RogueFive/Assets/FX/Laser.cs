@@ -30,9 +30,10 @@ public class Laser : MonoBehaviour
         belowWater,
         aboveWater
     }
-    private aquaMode state = aquaMode.aboveWater;
-    private bool touchedWater = false;
-    private float castWaterY;
+    [SerializeField] private aquaMode state = aquaMode.aboveWater;
+    private bool prevTouchedWater = false;
+    private float lastDetectedWaterY;
+    private Collider2D lastDetectedWaterCollider;
 
     [Header("Debug")]
     [SerializeField] private bool debugOn = true;
@@ -44,8 +45,8 @@ public class Laser : MonoBehaviour
         // If initially submerged
         if(isFullyUnderWater)
         {
-            touchedWater = true;
-            castWaterY = transform.position.z + 1.0f;
+            prevTouchedWater = true;
+            lastDetectedWaterY = transform.position.z + 1.0f;
             state = aquaMode.belowWater;
         }
 
@@ -79,7 +80,7 @@ public class Laser : MonoBehaviour
 
         // Read gradient for laser intensity
         float time = (Time.time % patternDuration) / patternDuration;
-        float laserIntensity = pattern.readAlpha(time);
+        float laserIntensity = pattern.getAlpha(time);
 
         // Override linerenderer alpha keys
         for (int i = 0;i < tempAlphaKeys.Length;i++)
@@ -113,7 +114,10 @@ public class Laser : MonoBehaviour
             if (hit.collider.gameObject.layer == waterSurfaceLayer)
             {
                 hitWater = true;
+                prevTouchedWater = true;
                 waterCollisionPos = hit.point;
+                lastDetectedWaterCollider = hit.collider;
+                lastDetectedWaterY = waterCollisionPos.y;
             }
             // Terrain or body, stop extending
             else
@@ -155,7 +159,8 @@ public class Laser : MonoBehaviour
         // or completely submerged pr completely above water
         if (!hitWater)
         {
-            if (!touchedWater || thisPos.y >= castWaterY)
+            // Never touched water OR previously touched water surface went below
+            if ((!prevTouchedWater && lastDetectedWaterCollider == null) || (lastDetectedWaterCollider != null && thisPos.y >= lastDetectedWaterCollider.transform.position.y))
             {
                 state = aquaMode.aboveWater;
             }
@@ -166,8 +171,6 @@ public class Laser : MonoBehaviour
         }
         else
         {
-            touchedWater = true;
-            castWaterY = waterCollisionPos.y;
             if (direction.y < 0.0f)
             {
                 state = aquaMode.intoWater;

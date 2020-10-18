@@ -9683,11 +9683,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 232c8c66bccf3b643af50012d48b37b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 100
+  damage: 50
   damageMask:
     serializedVersion: 2
     m_Bits: 591872
-  damageRadius: 10
+  damageRadius: 5
   oscillateDuration: 1
   numOscillation: 1
   initialForce: 0.5

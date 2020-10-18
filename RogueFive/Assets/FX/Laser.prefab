@@ -206,7 +206,7 @@ MonoBehaviour:
   obstacleMask:
     serializedVersion: 2
     m_Bits: 526848
-  laserDamage: 10
+  laserDamage: 30
   patternDuration: 5
   pattern:
     serializedVersion: 2
@@ -243,5 +243,6 @@ MonoBehaviour:
     m_Bits: 1024
   prefabLaserBubbleParticle: {fileID: 5466412782425088721, guid: bfcb13d506487df4c83bfec2121d33ae,
     type: 3}
+  state: 3
   debugOn: 1
   debugColor_laser: {r: 0, g: 1, b: 0, a: 1}
