@@ -10,7 +10,7 @@ using UnityEngine;
 /// 
 /// It will resume its timescale when PauseManager signal unpause.
 /// </summary>
-public class TimeScaleManager : MonoBehaviour, Pausible
+public class TimeScaleManager : MonoBehaviour, IPausible
 {
     private static TimeScaleManager singleton = null;
     private float timeScale = 1.0f;
